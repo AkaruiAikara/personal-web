@@ -28,7 +28,7 @@ const submitData = () => {
             return alert('Nomor telepon tidak boleh kosong')
         case !message:
             return alert('Pesan tidak boleh kosong')
-        case skill === "  ":
+        case !skill:
             return alert('Skill tidak boleh kosong')
         default:
             let a = document.createElement('a')
