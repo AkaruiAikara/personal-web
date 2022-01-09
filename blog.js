@@ -28,6 +28,9 @@ const renderBlog = () => {
     let contents = document.getElementById('contents')
     
     contents.innerHTML = ''
+    if (blogs.length === 0) {
+        contents.innerHTML = '<h1>No post found</h1>'
+    }
     for (let i = 0; i < blogs.length; i++) {
         contents.innerHTML += `
                 <div class="blog-list-item">

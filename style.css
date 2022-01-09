@@ -206,10 +206,14 @@ ion-icon:active {
   transition: 500ms;
 }
 
+#menu-icon {
+  display: none;
+}
+
 /* Contact */
 
 .contact-container {
-  width: 400px;
+  width: 450px;
   margin: 4rem auto;
 }
 
@@ -277,7 +281,7 @@ fieldset {
 }
 
 .card-form {
-  width: 400px;
+  width: 500px;
   border-radius: 5px;
   padding: 15px;
   box-shadow: 0px 0px 20px #00000040;
@@ -320,7 +324,7 @@ input[type="checkbox"] {
   width: auto;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 750px) {
   .navbar,
   .nav-left,
   .nav-right {
@@ -361,11 +365,6 @@ input[type="checkbox"] {
 
 .blog-form .form-container {
   width: 500px;
-}
-
-.blog-form .form-container h1 {
-  text-align: center;
-  margin-bottom: 40px;
 }
 
 .blog-form form label {
@@ -471,7 +470,7 @@ input[type="checkbox"] {
   padding: 5px 10px;
   border: 0;
   border-radius: 4px;
-  background: #ec4d37;
+  background: #296e6b;
   color: #fff;
 }
 

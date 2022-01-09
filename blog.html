@@ -1,32 +1,38 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Creating Blog Page</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- NavBar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <script src="form.js"></script>
+</head>
+<body>
     <div class="navbar">
-      <div class="nav-left">
-          <img class="nav-icon" src="assets/brandwhite.png" alt="icon">
-          <div class="nav-item">
-              <a href="index.html">Home</a>
-          </div>
-          <div class="nav-item active">
-              <a href="blog.html">Blog</a>
-          </div>
-      </div>
-      <div class="nav-right">
-          <a href="contact.html">Contact Me</a>
-      </div>
-  </div>
-
-    <!-- Blog -->
-    <!-- Form -->
+        <div class="nav-left">
+            <img class="nav-icon" src="assets/brandwhite.png" alt="icon">
+            <div class="nav-item">
+                <a href="index.html">Home</a>
+            </div>
+            <div class="nav-item active">
+                <a href="blog.html">Blog</a>
+            </div>
+        </div>
+        <div class="nav-right">
+            <a href="contact.html">Contact Me</a>
+        </div>
+    </div>
     <div class="blog">
       <div class="blog-form">
         <div class="form-container">
+          <h1>Create Post Blog</h1>
           <form onsubmit="addBlog(event)">
-            <h1>Create Post Blog</h1>
             <div>
               <label for="input-blog-title">Title</label>
               <input id="input-blog-title" />
@@ -84,6 +90,6 @@
         </div>
       </div>
     </div>
-    <script src="blog.js"></script>
-  </body>
+  <script src="blog.js"></script>
+</body>
 </html>
