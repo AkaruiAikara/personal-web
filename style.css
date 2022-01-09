@@ -209,7 +209,7 @@ ion-icon:active {
 /* Contact */
 
 .contact-container {
-  width: 70%;
+  width: 400px;
   margin: 4rem auto;
 }
 
@@ -373,34 +373,19 @@ input[type="checkbox"] {
   font-weight: 400;
 }
 
-.blog-form form input,
-textarea,
-select {
-  width: 100%;
-  font-size: 20px;
-  font-weight: 400;
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 20px;
-  background: #f4f3f3;
-  border: 1px solid #c4c4c4;
-  border-radius: 8px;
-}
-
 .blog-form form textarea {
   height: 250px;
 }
 
 .blog-form form .input-blog-image-group {
-  width: 100%;
+  width: 95.5%;
   font-size: 20px;
   font-weight: 400;
   padding: 8px;
   margin-top: 5px;
   margin-bottom: 20px;
-  background: #f4f3f3;
   border: 1px solid #c4c4c4;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -423,7 +408,7 @@ select {
   margin-top: 50px;
   padding: 8px 20px;
   font-size: 17px;
-  background: #ec4d37;
+  background: #296e6b;
   border-radius: 8px;
   border: none;
   color: #fff;
