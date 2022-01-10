@@ -434,7 +434,7 @@ input[type="checkbox"] {
   width: 80%;
   padding: 15px;
   margin-bottom: 20px;
-  border: 2px solid #dbdbdb;
+  box-shadow: 0px 0px 10px #00000040;
   border-radius: 8px;
   display: flex;
 }

@@ -64,10 +64,10 @@ const renderBlog = () => {
 
 const getFullTime = (time) => {
     const monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Des']
-    let date = time.getDate()
-    let month = monthName[time.getMonth()]
-    let year = time.getFullYear()
-    let hour = time.getHours()
+    const date = time.getDate()
+    const month = monthName[time.getMonth()]
+    const year = time.getFullYear()
+    const hour = time.getHours()
     let minute = `${time.getMinutes()}`
     if (minute.length < 2) {
         minute = `0${minute}`
@@ -77,8 +77,8 @@ const getFullTime = (time) => {
 }
 
 const getDistanceTime = (time) => {
-    let timepost = time
-    let timenow = new Date()
+    const timepost = time
+    const timenow = new Date()
 
     let distancetime = timenow - timepost
     distancetime = Math.floor(distancetime / 1000)
