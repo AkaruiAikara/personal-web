@@ -1,0 +1,13 @@
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #62be76 !important;
+  box-shadow: 0 0 0 0.25rem rgba(13, 253, 93, 0.25) !important;
+}

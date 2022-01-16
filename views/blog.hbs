@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/style.css">
+    <link rel="icon" href="../public/assets/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <title>Blog</title>
+</head>
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <nav class="navbar navbar-expand-sm navbar-light bg-success bg-opacity-10">
+        <div class="container-fluid mx-3">
+            <a class="navbar-brand" href="/">
+                <img src="../public/assets/logo.png" alt="logo" height="40">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
+                    <li class="nav-item px-2">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item px-2">
+                        <a class="nav-link active fw-bold text-success" href="/blog">Blog</a>
+                    </li>
+                </ul>
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#contact-modal">
+                    Contact Me
+                </button>
+            </div>
+        </div>
+    </nav>
+    <div class="container my-5">
+      <div class="d-flex flex-row-reverse mb-3">
+        {{#if isLogin}}
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#create-post">
+          Create a new post
+        </button>
+        {{/if}}
+      </div>
+      {{#if msg}}
+      <div class="alert alert-{{#if status}}success{{else}}danger{{/if}}" role="alert" id="alert">
+        <strong>{{#if status}}Success{{else}}Failed{{/if}}!</strong> {{ msg }}
+      </div>
+      {{/if}}
+      <!-- dynamic content would be here -->
+      {{#each datapost}}
+      <div class="d-flex flex-column flex-lg-row align-items-center p-3 shadow mb-3" id="content">
+        <div class="me-3">
+          <img src="{{ this.image }}" alt="" style="width: 350px">
+        </div>
+        <div class="flex-fill mt-3 mt-lg-0">
+          {{#if ../isLogin}}
+          <div class="d-flex justify-content-end" role="group">
+            {{log this.slug}}
+            <button type="submit" class="btn btn-info me-2" data-bs-toggle="modal" data-bs-target="#edit-post-{{ this.slug }}">Edit Post</button>
+            <form action="/blog/delete/{{ this.slug }}" method="post">
+              <button type="submit" class="btn btn-danger">Delete Blog</button>
+            </form>
+          </div>
+          {{/if}}
+          <h1>
+            <a href="blog/{{ slug }}" class="text-decoration-none text-dark"
+              >{{ this.title }}</a
+            >
+          </h1>
+          <div class="text-secondary mb-3">
+            {{ this.postAt }} | {{ this.author }}
+          </div>
+          <p>
+            {{ this.content }}
+          </p>
+        </div>
+      </div>
+      {{else}}
+      <h1>No post found</h1>
+      {{/each}}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="contact-modal" tabindex="-1" aria-labelledby="contact-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contact-modal-label">Contact Form</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{#if alert}}
+                    <div class="alert alert-{{#if (success)}}success{{else}}danger{{/if}} alert-dismissible fade show" role="alert" id="alert">
+                        <strong>{{#if (success)}}Success{{else}}Failed{{/if}}!</strong> {{ alert }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {{/if}}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
+                    <div class="mb-3 d-flex flex-row">
+                        <div class="me-1 flex-grow-1">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="number" class="form-control" id="phone" name="phone">
+                        </div>
+                        <div class="ms-1">
+                            <label for="subject">Subject</label><br>
+                            <select class="form-select mt-2" name="subject" id="subject">
+                                <option>Information</option>
+                                <option>Emergency</option>
+                                <option>Other Subject</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="messages">Messages</label>
+                        <textarea class="form-control mt-1" placeholder="Leave a comment here" id="messages" name="messages" style="height: 200px"></textarea>
+                    </div>
+                    <label for="skills">Skills</label>
+                    <div class="mt-1 d-flex flex-row btn-group" role="group" aria-label="Basic checkbox toggle button group" id="skills">
+                        <input name="skills[]" type="checkbox" class="flex-fill btn-check" id="btncheck1" autocomplete="off" value="HTML">
+                        <label class="btn btn-outline-success" for="btncheck1">HTML</label>
+
+                        <input name="skills[]" type="checkbox" class="flex-fill btn-check" id="btncheck2" autocomplete="off" value="CSS">
+                        <label class="btn btn-outline-success" for="btncheck2">CSS</label>
+
+                        <input name="skills[]" type="checkbox" class="flex-fill btn-check" id="btncheck3" autocomplete="off" value="JavaScript">
+                        <label class="btn btn-outline-success" for="btncheck3">JavaScript</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success" id="submit">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+
+    <div class="modal fade" id="create-post" tabindex="-1" aria-labelledby="create-post-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="" method="post" enctype="multipart/form-data">
+            <div class="modal-header">
+              <h5 class="modal-title" id="create-post-label">Create a new Post</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                  <label for="title" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="title" name="title">
+              </div>
+              <div class="mb-3">
+                  <label for="content">Content</label>
+                  <textarea class="form-control mt-1" id="content" name="content" style="height: 200px"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="image" class="form-label">Upload Image</label>
+                <input class="form-control" type="file" id="imagefile" name="imagefile">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success" id="submit">Save changes</button>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+    {{#each datapost}}
+    <div class="modal fade" id="edit-post-{{ this.slug }}" tabindex="-1" aria-labelledby="edit-post-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form action="" method="post" enctype="multipart/form-data">
+            <input type="text" id="slug" name="slug" hidden="true" value="{{ this.slug }}">
+            <div class="modal-header">
+              <h5 class="modal-title" id="edit-post-label">Edit Post</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                  <label for="title" class="form-label">Title</label>
+                  <input type="text" class="form-control" id="title" name="title" value="{{ this.title }}">
+              </div>
+              <div class="mb-3">
+                  <label for="content">Content</label>
+                  <textarea class="form-control mt-1" id="content" name="content" style="height: 200px">{{ this.content }}</textarea>
+              </div>
+              <div class="mb-3">
+                <label for="image" class="form-label">Upload Image</label>
+                <input class="form-control" type="file" id="imagefile" name="imagefile">
+                <input type="text" name="image" id="image" name="image" hidden="true" value="{{ this.image }}">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-success">Save changes</button>
+            </div>
+        </form>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+    <script src="../public/script.js"></script>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
