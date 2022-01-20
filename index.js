@@ -8,7 +8,7 @@ const express = require('express'),
       fs = require('fs'),
       path = require('path'),
       app = express(),
-      PORT = 5099;
+      PORT = 5000;
 
 db.connect()
 
