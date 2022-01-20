@@ -11,6 +11,7 @@
     <title>Home</title>
 </head>
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <nav class="navbar navbar-expand-sm navbar-light bg-success bg-opacity-10">
         <div class="container-fluid mx-3">
             <a class="navbar-brand" href="/">
@@ -28,7 +29,21 @@
                         <a class="nav-link" href="/blog">Blog</a>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#contact-modal">
+                {{#if isLogin}}
+                <div class="dropdown">
+                  <button class="btn btn-outline-success dropdown-toggle" type="button" id="profilenav" data-bs-toggle="dropdown" aria-expanded="false">
+                    Hi, {{ user.name }}!
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="profilenav">
+                    <li><a class="dropdown-item" href="#">Profile Settings</a></li>
+                    <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
+                  </ul>
+                </div>
+                {{else}}
+                <a href="/login" class="btn btn-outline-primary mx-2">Login</a>
+                <a href="/register" class="btn btn-outline-secondary mx-2">Register</a>
+                {{/if}}
+                <button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#contact-modal">
                     Contact Me
                 </button>
             </div>
@@ -36,8 +51,8 @@
     </nav>
     <div class="container d-flex align-items-center flex-column flex-lg-row my-5">
         <div class="flex-fill me-lg-4">
-            <div class="p-3 shadow" style="width: 450px">
-                <img src="../public/assets/me.jpg" alt="yahahailang" class="w-100  rounded">
+            <div class="p-3 shadow rounded-3" style="width: 450px">
+                <img src="../public/assets/me.jpg" alt="yahahailang" class="w-100 rounded-3">
                 <h1>Fallah Andy Prakasa</h1>
                 <p>I became a superstar to make awesome app and software to bring new life for mankind.</p>
                 <h3>Skills</h3>
@@ -61,45 +76,68 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th class="col">No.</th>
                             <th scope="col">Experiences</th>
                             <th scope="col">Year</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {{#each experiences}}
                         <tr>
-                            <td>Develop Personal Web</td>
-                            <td>2021</td>
+                            <td>{{ @index }}</td>
+                            <td>{{ this.experience }}</td>
+                            <td>{{ this.year }}</td>
                         </tr>
-                        <tr>
-                            <td>Learning ReactJS</td>
-                            <td>2022</td>
+                        {{/each}}
+                        {{#if isLogin}}
+                        <tr class="bg-success">
+                            <form action="" method="post">
+                                <td>
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" name="experience">
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control" name="year">
+                                </td>
+                            </form>
                         </tr>
-                        <tr>
-                            <td>Waiting for Hiring Employment</td>
-                            <td>2022</td>
-                        </tr>
+                        {{/if}}
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="flex-fill mt-5 mt-lg-0">
+            {{#if messages.success}}
+            <div class="alert alert-success" role="alert" id="alert">
+                <strong>Success!</strong> {{ messages.success }}
+            </div>
+            {{/if}}
+            {{#if messages.danger}}
+            <div class="alert alert-danger" role="alert" id="alert">
+                <strong>Failed!</strong> {{ messages.danger }}
+            </div>
+            {{/if}}
             <h1>What I do</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad voluptatem, rem officiis incidunt consequatur fugit saepe voluptatum libero in repellendus assumenda sit aliquam neque doloremque, ipsum suscipit aspernatur, aut dolor odit. Adipisci dolorem illum quis tempora consectetur possimus eos aliquid velit obcaecati aspernatur soluta, veritatis assumenda repudiandae quas. Illum, est unde suscipit provident amet quaerat, dolores quia maxime rerum iure repellat neque. Numquam nesciunt ipsam iusto accusamus inventore ratione cum est accusantium ipsa. Non beatae, ipsum architecto quia, voluptatem sunt voluptatum dolore aspernatur, voluptates iste alias numquam sapiente dolorum adipisci officia cupiditate delectus officiis optio! Esse alias nam doloribus asperiores.</p>
+                <p>Hi! my name is Fallah Andy Prakasa, a Passionated to being a Fullstack Developer. I have few knowledge about of programming before, like learning my first ever programming language, Python. playing with 1-2 non-website frameworks. Then, PHP. learning with Most popular website framework, Laravel. Then now, Javascript. hopefully I can learn React in the future.</p>
                 <div class="d-flex flex-row">
                     <div class="flex-fill">
                         <img src="../public/assets/js.png" alt="js">
                         <h3>Frontend Developer</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam, magni.</p>
+                        <p>Javascript is a programming language that is one of the core technologies of the World Wide Web, alongside HTML and CSS</p>
                     </div>
                     <div class="flex-fill">
                         <img src="../public/assets/git.png" alt="git">
                         <h3>Version Control</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, ipsum?</p>
+                        <p>Version control is a class of systems responsible for managing changes to computer programs, documents, large web sites, or other collections of information.</p>
                     </div>
                     <div class="flex-fill">
                         <img src="../public/assets/deploy.png" alt="deploy">
                         <h3>Automated Deployment</h3>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. A, laborum elit.</p>
+                        <p>With automated deployment, we don't need to worry about the deployment. It will deployed every after you made a changes</p>
                     </div>
                 </div>
             <h1>Find me on</h1>
@@ -123,19 +161,13 @@
     <!-- Modal -->
     <div class="modal fade" id="contact-modal" tabindex="-1" aria-labelledby="contact-modal-label" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="" method="post">
+        <form action="/contact" method="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="contact-modal-label">Contact Form</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    {{#if alert}}
-                    <div class="alert alert-{{#if (success)}}success{{else}}danger{{/if}} alert-dismissible fade show" role="alert">
-                        <strong>{{#if (success)}}Success{{else}}Failed{{/if}}!</strong> {{ alert }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                    {{/if}}
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="name" name="name">
@@ -164,13 +196,13 @@
                     </div>
                     <label for="skills">Skills</label>
                     <div class="mt-1 d-flex flex-row btn-group" role="group" aria-label="Basic checkbox toggle button group" id="skills">
-                        <input name="skills[]" type="checkbox" class="flex-fill btn-check" id="btncheck1" autocomplete="off" value="html">
+                        <input name="skills" type="checkbox" class="flex-fill btn-check" id="btncheck1" autocomplete="off" value="html">
                         <label class="btn btn-outline-success" for="btncheck1">HTML</label>
 
-                        <input name="skills[]" type="checkbox" class="flex-fill btn-check" id="btncheck2" autocomplete="off" value="css">
+                        <input name="skills" type="checkbox" class="flex-fill btn-check" id="btncheck2" autocomplete="off" value="css">
                         <label class="btn btn-outline-success" for="btncheck2">CSS</label>
 
-                        <input name="skills[]" type="checkbox" class="flex-fill btn-check" id="btncheck3" autocomplete="off" value="javascript">
+                        <input name="skills" type="checkbox" class="flex-fill btn-check" id="btncheck3" autocomplete="off" value="javascript">
                         <label class="btn btn-outline-success" for="btncheck3">JavaScript</label>
                     </div>
                 </div>

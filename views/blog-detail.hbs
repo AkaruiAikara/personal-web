@@ -28,29 +28,37 @@
                         <a class="nav-link active fw-bold text-success" href="/blog">Blog</a>
                     </li>
                 </ul>
-                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#contact-modal">
+                {{#if isLogin}}
+                <div class="dropdown">
+                  <button class="btn btn-outline-success dropdown-toggle" type="button" id="profilenav" data-bs-toggle="dropdown" aria-expanded="false">
+                    Hi, {{ user.name }}!
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="profilenav">
+                    <li><a class="dropdown-item" href="#">Profile Settings</a></li>
+                    <li><a class="dropdown-item text-danger" href="/logout">Logout</a></li>
+                  </ul>
+                </div>
+                {{else}}
+                <a href="/login" class="btn btn-outline-primary mx-2">Login</a>
+                <a href="/register" class="btn btn-outline-secondary mx-2">Register</a>
+                {{/if}}
+                <button type="button" class="btn btn-success ms-2" data-bs-toggle="modal" data-bs-target="#contact-modal">
                     Contact Me
                 </button>
             </div>
         </div>
     </nav>
     <div class="container my-5">
-      {{#each datapost}}
-      {{#ifCond ../slugurl this.slug}}
-      <h1 class="fs-1 mb-2">{{ this.title }}</h1>
-      <img src="{{ this.image }}" alt="image" class="mw-100 w-100 mb-4">
-      <p class="fs-6 mb-5">{{ this.postAt }} | {{ this.author}}</p>
-      <p class="fs-4">{{ this.content }}</p>
-      {{/ifCond}}
-      {{else}}
-      <h1>No posts found.</h1>
-      {{/each}}
+      <h1 class="fs-1 mb-2">{{ datapost.title }}</h1>
+      <img src="../uploads/{{ datapost.image }}" alt="image" class="mw-100 w-100 mb-4">
+      <p class="fs-6 mb-5">{{getFullTime datapost.postAt}} | {{ datapost.author }}</p>
+      <p class="fs-4">{{ datapost.content }}</p>
       <a href="/blog" class="btn btn-success">Back</a>
 
     <!-- Modal -->
     <div class="modal fade" id="contact-modal" tabindex="-1" aria-labelledby="contact-modal-label" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="" method="post">
+        <form action="/contact" method="post">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="contact-modal-label">Contact Form</h5>
@@ -91,13 +99,13 @@
                     </div>
                     <label for="skills">Skills</label>
                     <div class="mt-1 d-flex flex-row btn-group" role="group" aria-label="Basic checkbox toggle button group" id="skills">
-                        <input name="skills[]" type="checkbox" class="flex-fill btn-check" id="btncheck1" autocomplete="off" value="HTML">
+                        <input name="skills" type="checkbox" class="flex-fill btn-check" id="btncheck1" autocomplete="off" value="HTML">
                         <label class="btn btn-outline-success" for="btncheck1">HTML</label>
 
-                        <input name="skills[]" type="checkbox" class="flex-fill btn-check" id="btncheck2" autocomplete="off" value="CSS">
+                        <input name="skills" type="checkbox" class="flex-fill btn-check" id="btncheck2" autocomplete="off" value="CSS">
                         <label class="btn btn-outline-success" for="btncheck2">CSS</label>
 
-                        <input name="skills[]" type="checkbox" class="flex-fill btn-check" id="btncheck3" autocomplete="off" value="JavaScript">
+                        <input name="skills" type="checkbox" class="flex-fill btn-check" id="btncheck3" autocomplete="off" value="JavaScript">
                         <label class="btn btn-outline-success" for="btncheck3">JavaScript</label>
                     </div>
                 </div>
